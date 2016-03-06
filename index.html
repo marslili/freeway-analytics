@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-tw">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高速公路交流道分析</title>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- Page styles -->
+  <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic'>
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="./bower_components/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="./bower_components/dcjs/dc.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">高速公路交流道分析</span>
+      </div>
+    </header>
+    <main class="mdl-layout__content mdl-color--grey-100">
+      <div class="mdl-grid demo-content">
+        <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+          <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+            <div id="chart-bar-hour" class="chart padding">
+              <div class="title">時間
+                <a class="reset" href="javascript:hourBarChart.filterAll();dc.redrawAll();" style="visibility: hidden;">reset</a>
+              </div>
+            </div>
+          </div>
+          <div class="demo-separator mdl-cell--1-col"></div>
+          <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+            <div id="chart-pie-gantry" class="chart padding">
+              <div class="title">交流道
+                <a class="reset" href="javascript:gantryPieChart.filterAll();dc.redrawAll();" style="display: none">reset</a></div>
+            </div>
+          </div>
+          <div class="demo-separator mdl-cell--1-col"></div>
+          <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+            <div id="chart-row-vehicle" class="chart padding">
+              <div class="title">車種
+                <a class="reset" href="javascript:vehiclePieChart.filterAll();dc.redrawAll();" style="display: none">reset</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--6-col-desktop">
+          <div>
+            <div class="dc-data-count">
+              <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+            </div>
+          </div>
+          <table id="data-table" class="mdl-data-table mdl-js-data-table dc-data-table"></table>
+          <div id="paging">
+            Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
+            <input id="btn-last" type="Button" value="Last" />
+            <input id="btn-next" type="button" value="Next" />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="./bower_components/material-design-lite/material.min.js"></script>
+  <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="./bower_components/d3/d3.min.js"></script>
+  <script src="./bower_components/crossfilter/crossfilter.min.js"></script>
+  <script src="./bower_components/dcjs/dc.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
