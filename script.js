@@ -10,18 +10,18 @@ var all;
 
 jQuery(function($) {
 
-  d3.json('../data/etag-data.json', function(err, jsonData) {
+  d3.json('./data/etag-data.json', function(err, jsonData) {
     if (err !== null) {
       alert(err);
     }
     draw(jsonData);
   });
 
-  d3.json('../data/gantry.json', function(err, jsonData) {
+  d3.json('./data/gantry.json', function(err, jsonData) {
     gantryAry = jsonData;
   });
 
-  d3.json('../data/vehicle-type.json', function(err, jsonData) {
+  d3.json('./data/vehicle-type.json', function(err, jsonData) {
     vehicleAry = jsonData;
   });
 
