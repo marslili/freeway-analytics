@@ -18,7 +18,7 @@
 
 <body>
   <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+    <header class="demo-header mdl-layout__header mdl-color--primary-dark">
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">高速公路交流道分析</span>
       </div>
@@ -26,7 +26,7 @@
     <main class="mdl-layout__content mdl-color--grey-100">
       <div class="mdl-grid demo-content">
         <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-          <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
             <div id="chart-bar-hour" class="chart padding">
               <div class="title">時間
                 <a class="reset" href="javascript:hourBarChart.filterAll();dc.redrawAll();" style="visibility: hidden;">reset</a>
@@ -34,14 +34,14 @@
             </div>
           </div>
           <div class="demo-separator mdl-cell--1-col"></div>
-          <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
             <div id="chart-pie-gantry" class="chart padding">
               <div class="title">交流道
                 <a class="reset" href="javascript:gantryPieChart.filterAll();dc.redrawAll();" style="display: none">reset</a></div>
             </div>
           </div>
           <div class="demo-separator mdl-cell--1-col"></div>
-          <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+          <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
             <div id="chart-row-vehicle" class="chart padding">
               <div class="title">車種
                 <a class="reset" href="javascript:vehiclePieChart.filterAll();dc.redrawAll();" style="display: none">reset</a></div>
@@ -54,11 +54,20 @@
               <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
             </div>
           </div>
-          <table id="data-table" class="mdl-data-table mdl-js-data-table dc-data-table"></table>
+          <table id="data-table" class="mdl-data-table mdl-js-data-table dc-data-table">
+            <thead>
+            <tr>
+              <th>項目</th>
+              <th>代號<button id="gantry-key" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">sort</i></button></th>
+              <th>名稱</th>
+              <th>流量<button id="gantry-count" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">sort</i></button></th>
+            </tr>
+        </thead>
+          </table>
           <div id="paging">
             Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
-            <input id="btn-last" type="Button" value="Last" />
-            <input id="btn-next" type="button" value="Next" />
+            <input id="btn-last" type="Button" value="Last" class="mdl-button mdl-js-button mdl-button--primary" />
+            <input id="btn-next" type="button" value="Next" class="mdl-button mdl-js-button mdl-button--accent" />
           </div>
         </div>
       </div>

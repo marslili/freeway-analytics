@@ -7,6 +7,8 @@ var dataCount = dc.dataCount('.dc-data-count');
 var dataTable = dc.dataTable('#data-table');
 
 var all;
+var dataTableIdx = 1;
+var groupedDimension;
 
 jQuery(function($) {
 
@@ -29,28 +31,40 @@ jQuery(function($) {
 
   $('#btn-last').on('click', lastPage);
 
+  // $(window).resize(function() {
+  //   dc.renderAll();
+  // });
+  // 
+  // 
+  $('#gantry-key').on('click', function() {
+    sortBy('key');
+  });
+
+  $('#gantry-count').on('click', function() {
+    sortBy('count');
+  });
+
 });
 
 function draw(jsonData) {
-  var width = 400,
-    height = 170;
-
   // normalize/parse data.
   var dateFormat = d3.time.format('%Y/%m/%d %H:%M');
   var data = [];
-  var vehicleName;
+
   jsonData.forEach(function(d) {
     for (var i = 0; i < d.count; i++) {
       data.push({
         date: d.time_interval,
         formatDate: dateFormat.parse(d.time_interval),
-        gantryFrom: getGantryName(d.gantry_from),
-        vehicleName: getVehicleName(d.vehicle_type)
+        gantryFrom: d.gantry_from,
+        gantryName: getGantryName(d.gantry_from),
+        vehicleName: getVehicleName(d.vehicle_type),
+        count: d.count
       });
     }
   });
 
-  //  console.table(data);
+  // console.table(jsonData);
 
   // set crossfilter
   var ndx = crossfilter(data),
@@ -58,39 +72,66 @@ function draw(jsonData) {
       return d.formatDate.getHours();
     }),
     gentryDim = ndx.dimension(function(d) {
-      return d.gantryFrom;
+      return d.gantryName;
     }),
     vehicleDim = ndx.dimension(function(d) {
       return d.vehicleName;
     }),
     dataTableDim = ndx.dimension(function(d) {
-      return d;
+      return d.gantryFrom;
     });
+
+  groupedDimension = dataTableDim.group().reduce(
+    function(p, v) {
+      ++p.count;
+      p.gantryFrom = v.gantryFrom;
+      p.gantryName = v.gantryName;
+      return p;
+    },
+    function(p, v) {
+      --p.count;
+      p.gantryFrom = v.gantryFrom;
+      p.gantryName = v.gantryName;
+      return p;
+    },
+    function() {
+      return {
+        gantryFrom: "",
+        gantryName: "",
+        count: 0
+      };
+    });
+
 
   all = ndx.groupAll();
 
-  var hourGroup = hourDim.group().orderNatural(),
-    gentryGroup = gentryDim.group().reduceCount(),
-    vehicleGroup = vehicleDim.group().orderNatural();
-
+  var width = $('.demo-cards').width(),
+    height = 170;
+  width = width > 480 ? 480 : width;
 
   hourBarChart
-    .width(370)
+    .margins({
+      top: 10,
+      right: 30,
+      bottom: 30,
+      left: 40
+    })
+    .width(width)
     .height(height)
     .x(d3.scale.linear().domain([0, 24]))
     .brushOn(true)
     .dimension(hourDim)
-    .group(hourGroup)
+    .group(hourDim.group().orderNatural())
     .controlsUseVisibility(true)
     .on("filtered", function(c, f) {
       updateGraph(c, f);
     });
 
   gantryPieChart
-    .width(430)
+    .width(width)
     .height(height)
     .dimension(gentryDim)
-    .group(gentryGroup)
+    .group(gentryDim.group().reduceCount())
     .slicesCap(8)
     .label(function(d) {
       if (gantryPieChart.hasFilter() && !gantryPieChart.hasFilter(d.key)) {
@@ -105,12 +146,11 @@ function draw(jsonData) {
       updateGraph(c, f);
     });
 
-
   vehiclePieChart
-    .width(430)
+    .width(width)
     .height(height)
     .dimension(vehicleDim)
-    .group(vehicleGroup)
+    .group(vehicleDim.group().orderNatural())
     .colors(d3.scale.category10())
     .label(function(d) {
       if (vehiclePieChart.hasFilter() && !vehiclePieChart.hasFilter(d.key)) {
@@ -133,37 +173,61 @@ function draw(jsonData) {
     });
 
   dataTable
-    .width(768)
-    .height(480)
-    .dimension(dataTableDim)
-    .group(function(p) {})
+    .dimension(groupedDimension)
+    .group(function(d) {
+      // console.log(d);
+      return "";
+    })
     .showGroups(false)
     .size(Infinity)
-    .columns([{
-      label: '時間',
-      format: function(d) {
-        return d.date;
+    .columns([
+      // label: '項目',
+      function(d) {
+        return dataTableIdx++;
+        // }
+      },
+      // label: '代號<button id="gantry-key" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">swap_vert</i></button>',
+      function(d) {
+        return d.value.gantryFrom;
+        // }
+      },
+      // label: '名稱',
+      function(d) {
+        return d.value.gantryName;
+        // }
+      },
+      // label: '流量<button id="gantry-count" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">swap_vert</i></button>',
+      function(d) {
+        return d.value.count;
+        // }
       }
-    }, {
-      label: '偵測器位置',
-      format: function(d) {
-        return d.gantryFrom;
-      }
-    }, {
-      label: '車種',
-      format: function(d) {
-        return d.vehicleName;
-      }
-    }])
+    ])
     .sortBy(function(d) {
-      return d.formatDate;
+      return d.value.count;
     })
     .order(d3.descending)
     .on('renderlet', function(table) {
       table.selectAll('.dc-table-group').classed('info', true);
     });
+
   updateGraph();
   dc.renderAll();
+}
+
+function sortBy(column) {
+  dataTableIdx = 1;
+  switch (column) {
+    case 'key':
+      dataTable.sortBy(function(d) {
+        return d.value.gantryFrom;
+      }).redraw();
+      break;
+    case 'count':
+      dataTable.sortBy(function(d) {
+        return d.value.count;
+      }).redraw();
+      break;
+  }
 }
 
 // use odd page size to show the effect better
@@ -174,8 +238,8 @@ function display() {
   d3.select('#begin').text(ofs);
   d3.select('#end').text(ofs + pag - 1);
   d3.select('#btn-last').attr('disabled', ofs - pag < 0 ? 'true' : null);
-  d3.select('#btn-next').attr('disabled', ofs + pag >= all.value() ? 'true' : null);
-  d3.select('#size').text(all.value());
+  d3.select('#btn-next').attr('disabled', ofs + pag >= groupedDimension.size() ? 'true' : null);
+  d3.select('#size').text(groupedDimension.size());
 }
 
 /**
@@ -183,6 +247,7 @@ function display() {
  * @return {[type]} [description]
  */
 function updateGraph() {
+  dataTableIdx = 1;
   dataTable.beginSlice(ofs);
   dataTable.endSlice(ofs + pag);
   display();

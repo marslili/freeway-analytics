@@ -111,7 +111,7 @@
 .demo-graphs {
   display: flex;
   flex-direction: column;
-  padding: 16px 32px;
+  padding: 16px;
   align-items: stretch;
 }
 
@@ -215,5 +215,9 @@ _:-ms-input-placeholder,
 }
 
 .padding {
-  padding: 16px 32px;
+  padding: 16px;
+}
+
+.mdl-layout__container{
+  min-width: 480px;
 }
