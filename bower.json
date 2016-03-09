@@ -17,8 +17,6 @@
     "tests"
   ],
   "dependencies": {
-    "material-design-lite": "~1.1.1",
-    "dcjs": "2.0.0-beta.27",
-    "material-design-icons": "^2.2.0"
+    "dcjs": "2.0.0-beta.27"
   }
 }

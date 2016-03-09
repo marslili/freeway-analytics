@@ -9,12 +9,26 @@
   <title>高速公路交流道分析</title>
   <link rel="shortcut icon" href="favicon.ico" />
   <!-- Page styles -->
-  <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic'>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="./bower_components/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.2/material.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
   <link rel="stylesheet" href="./bower_components/dcjs/dc.min.css">
   <link rel="stylesheet" href="./bower_components/mdl-selectfield/mdl-selectfield.min.css">
   <link rel="stylesheet" href="./style.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+  <script>
+  var gantryAry = [];
+  $.getJSON('./data/gantry.json', function(jsonData) {
+    gantryAry = jsonData;
+    var items = [];
+    $.each(jsonData, function(key, val) {
+      items.push('<option value="' + val.name + '"> ' + val.name + '</option>');
+    });
+    $('#select-gantry').append(items.join(''));
+  });
+  </script>
 </head>
 
 <body>
@@ -53,8 +67,8 @@
             </select>
           </div>
           <div class="demo-separator mdl-cell--1-col"></div>
-          <div id="date_container" class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="date" id="date" />
+          <div class="mdl-textfield mdl-js-textfield mdl-cell--3-col">
+            <input class="mdl-textfield__input" type="text" placeholder="請選擇日期" id="datepicker" />
           </div>
         </div>
         <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
@@ -102,18 +116,21 @@
           <div id="paging">
             Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
             <input id="btn-last" type="Button" value="Last" class="mdl-button mdl-js-button mdl-button--primary" />
-            <input id="btn-next" type=e "button" value="Next" class="mdl-button mdl-js-button mdl-button--accent" />
+            <input id="btn-next" type="button" value="Next" class="mdl-button mdl-js-button mdl-button--accent" />
           </div>
         </div>
       </div>
     </main>
   </div>
-  <script src="./bower_components/material-design-lite/material.min.js"></script>
-  <script src="./bower_components/mdl-selectfield/mdl-selectfield.min.js"></script>
-  <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.2/material.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
   <script src="./bower_components/d3/d3.min.js"></script>
   <script src="./bower_components/crossfilter/crossfilter.min.js"></script>
   <script src="./bower_components/dcjs/dc.min.js"></script>
+  <script src="./bower_components/mdl-selectfield/mdl-selectfield.min.js"></script>
   <script src="./script.js"></script>
 </body>
 

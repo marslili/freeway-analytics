@@ -1,4 +1,5 @@
-var gantryAry, vehicleAry;
+// var gantryAry = [];
+var vehicleAry = [];
 
 var hourBarChart = dc.barChart('#chart-bar-hour');
 var gantryPieChart = dc.pieChart('#chart-pie-gantry');
@@ -19,14 +20,14 @@ jQuery(function($) {
     draw(jsonData);
   });
 
-  d3.json('./data/gantry.json', function(err, jsonData) {
-    gantryAry = jsonData;
-    var items = [];
-    $.each(jsonData, function(key, val) {
-      items.push('<option value="' + val.name + '">' + val.name + '</option>');
-    });
-    $('#select-gantry').append(items.join(''));
-  });
+  // d3.json('./data/gantry.json', function(jsonData) {
+  //   gantryAry = jsonData;
+  //   var items = [];
+  //   $.each(jsonData, function(key, val) {
+  //     items.push('<option value="' + val.name + '"> ' + val.name + '</option>');
+  //   });
+  //   $('#select-gantry').append(items.join(''));
+  // });
 
   d3.json('./data/vehicle-type.json', function(err, jsonData) {
     vehicleAry = jsonData;
@@ -44,6 +45,9 @@ jQuery(function($) {
     sortBy('count');
   });
 
+  $('#datepicker').datetimepicker({
+    format: 'YYYY/MM/DD'
+  });
 });
 
 function draw(jsonData) {
