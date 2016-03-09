@@ -31,11 +31,6 @@ jQuery(function($) {
 
   $('#btn-last').on('click', lastPage);
 
-  // $(window).resize(function() {
-  //   dc.renderAll();
-  // });
-  // 
-  // 
   $('#gantry-key').on('click', function() {
     sortBy('key');
   });
@@ -123,6 +118,7 @@ function draw(jsonData) {
     .dimension(hourDim)
     .group(hourDim.group().orderNatural())
     .controlsUseVisibility(true)
+    .elasticY(true)
     .on("filtered", function(c, f) {
       updateGraph(c, f);
     });
@@ -168,39 +164,20 @@ function draw(jsonData) {
     .dimension(ndx)
     .group(all)
     .html({
-      some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> records' + ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'\'>Reset All</a>',
-      all: 'All records selected. Please click on the graph to apply filters.'
+      some: '<strong>%filter-count</strong> selected out of <strong>%total-count</strong> cars' + ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'\'>Reset All</a>',
+      all: 'Cars total：<strong>%total-count</strong> '
     });
 
   dataTable
     .dimension(groupedDimension)
-    .group(function(d) {
-      // console.log(d);
-      return "";
-    })
+    .group(function(d) {return "";})
     .showGroups(false)
     .size(Infinity)
     .columns([
-      // label: '項目',
-      function(d) {
-        return dataTableIdx++;
-        // }
-      },
-      // label: '代號<button id="gantry-key" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">swap_vert</i></button>',
-      function(d) {
-        return d.value.gantryFrom;
-        // }
-      },
-      // label: '名稱',
-      function(d) {
-        return d.value.gantryName;
-        // }
-      },
-      // label: '流量<button id="gantry-count" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">swap_vert</i></button>',
-      function(d) {
-        return d.value.count;
-        // }
-      }
+      function(d) {return dataTableIdx++;},
+      function(d) {return d.value.gantryFrom;},
+      function(d) {return d.value.gantryName;},
+      function(d) {return d.value.count;}
     ])
     .sortBy(function(d) {
       return d.value.count;

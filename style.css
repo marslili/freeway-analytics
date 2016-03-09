@@ -165,13 +165,6 @@ _:-ms-input-placeholder,
   font-size: 1em;
 }
 
-.demo-updates .mdl-card__title {
-  min-height: 200px;
-  background-image: url('images/dog.png');
-  background-repeat: no-repeat;
-  background-position: 90% 100%;
-}
-
 .demo-cards .mdl-card__actions a {
   text-decoration: none;
   color: #00bcd4;
@@ -218,6 +211,22 @@ _:-ms-input-placeholder,
   padding: 16px;
 }
 
-.mdl-layout__container{
+.mdl-layout__container {
   min-width: 480px;
+}
+
+#data-table th {
+  line-height: 35px;
+}
+
+#data-table td:nth-child(3) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 162px;
+}
+
+#data-table td:nth-child(1),
+#data-table td:nth-child(4) {
+  text-align: center;
 }

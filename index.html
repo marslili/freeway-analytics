@@ -51,18 +51,21 @@
         <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--6-col-desktop">
           <div>
             <div class="dc-data-count">
-              <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
             </div>
           </div>
           <table id="data-table" class="mdl-data-table mdl-js-data-table dc-data-table">
             <thead>
-            <tr>
-              <th>項目</th>
-              <th>代號<button id="gantry-key" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">sort</i></button></th>
-              <th>名稱</th>
-              <th>流量<button id="gantry-count" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">sort</i></button></th>
-            </tr>
-        </thead>
+              <tr>
+                <th>項目</th>
+                <th>代號
+                  <button id="gantry-key" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">sort</i></button>
+                </th>
+                <th>名稱</th>
+                <th>流量
+                  <button id="gantry-count" class="mdl-button mdl-js-button mdl-button--icon"><i class="material-icons">sort</i></button>
+                </th>
+              </tr>
+            </thead>
           </table>
           <div id="paging">
             Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
