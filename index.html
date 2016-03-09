@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="./bower_components/material-design-lite/material.min.css">
   <link rel="stylesheet" href="./bower_components/dcjs/dc.min.css">
+  <link rel="stylesheet" href="./bower_components/mdl-selectfield/mdl-selectfield.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -25,6 +26,37 @@
     </header>
     <main class="mdl-layout__content mdl-color--grey-100">
       <div class="mdl-grid demo-content">
+        <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+          <div class="mdl-selectfield mdl-js-selectfield">
+            <label class="mdl-selectfield__label" for="select-freeway">請選擇國道</label>
+            <select id="select-freeway" name="select-freeway" class="mdl-selectfield__select">
+              <option value=""></option>
+              <option value="國道一號">國道一號</option>
+              <option value="國道一甲">國道一甲</option>
+              <option value="國道二號">國道二號</option>
+              <option value="國道二甲">國道二甲</option>
+              <option value="國道三號">國道三號</option>
+              <option value="國道三甲">國道三甲</option>
+              <option value="國道四號">國道四號</option>
+              <option value="國道五號">國道五號</option>
+              <option value="國道六號">國道六號</option>
+              <option value="國道七號">國道七號</option>
+              <option value="國道八號">國道八號</option>
+              <option value="國道十號">國道十號</option>
+            </select>
+          </div>
+          <div class="demo-separator mdl-cell--1-col"></div>
+          <div class="mdl-selectfield mdl-js-selectfield">
+            <label class="mdl-selectfield__label" for="select-gantry">請選擇交流道</label>
+            <select id="select-gantry" name="select-gantry" class="mdl-selectfield__select">
+              <option value=""></option>
+            </select>
+          </div>
+          <div class="demo-separator mdl-cell--1-col"></div>
+          <div id="date_container" class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="date" id="date" />
+          </div>
+        </div>
         <div class="demo-cards mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
           <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
             <div id="chart-bar-hour" class="chart padding">
@@ -70,13 +102,14 @@
           <div id="paging">
             Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
             <input id="btn-last" type="Button" value="Last" class="mdl-button mdl-js-button mdl-button--primary" />
-            <input id="btn-next" type="button" value="Next" class="mdl-button mdl-js-button mdl-button--accent" />
+            <input id="btn-next" type=e "button" value="Next" class="mdl-button mdl-js-button mdl-button--accent" />
           </div>
         </div>
       </div>
     </main>
   </div>
   <script src="./bower_components/material-design-lite/material.min.js"></script>
+  <script src="./bower_components/mdl-selectfield/mdl-selectfield.min.js"></script>
   <script src="./bower_components/jquery/dist/jquery.min.js"></script>
   <script src="./bower_components/d3/d3.min.js"></script>
   <script src="./bower_components/crossfilter/crossfilter.min.js"></script>

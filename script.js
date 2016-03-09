@@ -21,6 +21,11 @@ jQuery(function($) {
 
   d3.json('./data/gantry.json', function(err, jsonData) {
     gantryAry = jsonData;
+    var items = [];
+    $.each(jsonData, function(key, val) {
+      items.push('<option value="' + val.name + '">' + val.name + '</option>');
+    });
+    $('#select-gantry').append(items.join(''));
   });
 
   d3.json('./data/vehicle-type.json', function(err, jsonData) {
@@ -170,14 +175,24 @@ function draw(jsonData) {
 
   dataTable
     .dimension(groupedDimension)
-    .group(function(d) {return "";})
+    .group(function(d) {
+      return "";
+    })
     .showGroups(false)
     .size(Infinity)
     .columns([
-      function(d) {return dataTableIdx++;},
-      function(d) {return d.value.gantryFrom;},
-      function(d) {return d.value.gantryName;},
-      function(d) {return d.value.count;}
+      function(d) {
+        return dataTableIdx++;
+      },
+      function(d) {
+        return d.value.gantryFrom;
+      },
+      function(d) {
+        return d.value.gantryName;
+      },
+      function(d) {
+        return d.value.count;
+      }
     ])
     .sortBy(function(d) {
       return d.value.count;
@@ -246,11 +261,9 @@ function getGantryName(gantryId) {
   var gantryName;
   for (var i = 0, size = gantryAry.length; i < size; i++) {
     if (gantryAry[i].id === gantryId) {
-      gantryName = gantryAry[i].name;
-      break;
+      return gantryAry[i].name;
     }
   }
-  return gantryName.substring(1, gantryName.length - 1);
 }
 
 function getVehicleName(vehicleId) {
