@@ -230,3 +230,12 @@ _:-ms-input-placeholder,
 #data-table td:nth-child(4) {
   text-align: center;
 }
+
+.demo-header {
+  color: #eeeeee;
+  background-color: #424242;
+}
+
+#datepicker {
+  padding-left: 50px;
+}

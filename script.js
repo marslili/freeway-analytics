@@ -228,7 +228,7 @@ function sortBy(column) {
 
 // use odd page size to show the effect better
 var ofs = 0,
-  pag = 10;
+  pag = 15;
 
 function display() {
   d3.select('#begin').text(ofs);
